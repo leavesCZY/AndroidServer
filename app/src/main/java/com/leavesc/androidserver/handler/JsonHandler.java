@@ -23,8 +23,6 @@ import java.io.IOException;
  */
 public class JsonHandler implements RequestHandler {
 
-    private static final String TAG = "JsonHandler";
-
     @RequestMapping(method = {RequestMethod.POST})
     @Override
     public void handle(HttpRequest httpRequest, HttpResponse httpResponse, HttpContext httpContext) throws HttpException, IOException {

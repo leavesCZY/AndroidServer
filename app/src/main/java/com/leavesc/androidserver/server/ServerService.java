@@ -16,9 +16,6 @@ import com.yanzhenjie.andserver.AndServer;
 import com.yanzhenjie.andserver.Server;
 import com.yanzhenjie.andserver.filter.HttpCacheFilter;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.InetAddress;
 import java.util.concurrent.TimeUnit;
 
@@ -32,23 +29,19 @@ public class ServerService extends Service {
 
     private Server server;
 
-    private InputStream inputStream;
-
-    private OutputStream outputStream;
-
     private static final String TAG = "ServerService";
 
     @Override
     public void onCreate() {
         server = AndServer.serverBuilder()
-                .inetAddress(NetUtils.getLocalIPAddress())
-                .port(Constants.PORT_SERVER)
-                .timeout(10, TimeUnit.SECONDS)
-                .registerHandler(Constants.GET_FILE, new DownloadFileHandler())
-                .registerHandler(Constants.GET_IMAGE, new DownloadImageHandler())
-                .registerHandler(Constants.POST_JSON, new JsonHandler())
-                .filter(new HttpCacheFilter())
-                .listener(new Server.ServerListener() {
+                .inetAddress(NetUtils.getLocalIPAddress())  //服务器要监听的网络地址
+                .port(Constants.PORT_SERVER) //服务器要监听的端口
+                .timeout(10, TimeUnit.SECONDS) //Socket超时时间
+                .registerHandler(Constants.GET_FILE, new DownloadFileHandler()) //注册一个文件下载接口
+                .registerHandler(Constants.GET_IMAGE, new DownloadImageHandler()) //注册一个图片下载接口
+                .registerHandler(Constants.POST_JSON, new JsonHandler()) //注册一个Post Json接口
+                .filter(new HttpCacheFilter()) //开启缓存支持
+                .listener(new Server.ServerListener() {  //服务器监听接口
                     @Override
                     public void onStarted() {
                         String hostAddress = server.getInetAddress().getHostAddress();
@@ -80,7 +73,6 @@ public class ServerService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        clean();
         stopServer();
     }
 
@@ -109,25 +101,6 @@ public class ServerService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
-    }
-
-    private void clean() {
-        if (inputStream != null) {
-            try {
-                inputStream.close();
-                inputStream = null;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        if (outputStream != null) {
-            try {
-                outputStream.close();
-                outputStream = null;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
 }
