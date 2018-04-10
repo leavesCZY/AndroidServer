@@ -11,8 +11,9 @@ import android.widget.Toast;
 
 /**
  * 作者：leavesC
- * 时间：2018/4/3 14:51
- * 描述：
+ * 时间：2018/4/5 16:30
+ * 描述：https://github.com/leavesC/AndroidServer
+ * https://www.jianshu.com/u/9df45b87cfdf
  */
 @SuppressLint("Registered")
 public class BaseActivity extends AppCompatActivity {

@@ -26,8 +26,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation files('libs/andserver-1.1.3.jar')
-    implementation files('libs/commons-io-2.6.jar')
     implementation files('libs/fileupload-1.3.3.jar')
-    implementation files('libs/gson-2.8.2.jar')
     implementation files('libs/httpcore-4.4.9.jar')
 }
